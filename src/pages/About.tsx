@@ -11,22 +11,22 @@ const About = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-grow">
+      <main className="flex-grow mt-4">
         {/* Hero Section */}
-        <section className="bg-gray-50 py-16">
+        <section className="bg-gray-50 py-16 ">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl font-bold mb-6 gradient-heading">About StudyPoint</h1>
+              <h1 className="text-4xl font-bold mb-6 gradient-heading">About EduResources</h1>
               <p className="text-lg text-gray-700 mb-8">
                 We're on a mission to make quality academic resources freely accessible to 
-                all BCA students, helping them excel in their studies and academic journey.
+                all  students, helping them excel in their studies and academic journey.
               </p>
             </div>
           </div>
         </section>
         
         {/* Our Story Section */}
-        <section className="py-16">
+        <section className="py-16 px-4">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center gap-12">
               <div className="md:w-1/2">
@@ -39,14 +39,14 @@ const About = () => {
               <div className="md:w-1/2">
                 <h2 className="text-3xl font-bold mb-4">Our Story</h2>
                 <p className="text-gray-700 mb-4">
-                  StudyPoint was founded by a group of BCA graduates who faced challenges finding 
+                  EduResources was founded by a group of BCA students who faced challenges finding 
                   quality study materials during their academic years. We understand the struggles 
                   students face when preparing for exams or trying to understand complex topics.
                 </p>
                 <p className="text-gray-700 mb-4">
                   Our platform serves as a centralized repository of carefully curated academic 
-                  resources including comprehensive notes, past exam questions, and official 
-                  syllabi for BCA students.
+                  resources including comprehensive notes, lab report, past exam questions, and official 
+                  syllabi for students.
                 </p>
                 <p className="text-gray-700">
                   We believe in community collaboration and welcome contributions from students 
@@ -58,7 +58,7 @@ const About = () => {
         </section>
         
         {/* Features Section */}
-        <section className="bg-gray-50 py-16">
+        <section className="bg-gray-50 py-16 px-4">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">What We Offer</h2>
             
@@ -91,6 +91,10 @@ const About = () => {
                 <p className="text-gray-600">
                   Current and updated course syllabi for all semesters to guide your study plan.
                 </p>
+                <h3 className="text-xl font-semibold mb-2">Reports</h3>
+                <p className="text-gray-600">
+                          Lab reports and project documentation to help you with practical work.
+                        </p>
               </div>
             </div>
           </div>
@@ -101,15 +105,15 @@ const About = () => {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">Our Team</h2>
             <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
-              We're a small team of dedicated BCA graduates and educators passionate about 
+              We're a small team of dedicated BCA students passionate about 
               improving access to quality learning resources.
             </p>
             
             <div className="flex justify-center">
               <Button asChild variant="outline">
-                <Link to="/contact">
+                <Link to="/resources">
                   <Users className="mr-2 h-4 w-4" />
-                  Meet Our Team
+                  Explore Resources
                 </Link>
               </Button>
             </div>
@@ -122,7 +126,7 @@ const About = () => {
             <h2 className="text-3xl font-bold mb-4">Join Our Community</h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
               Start exploring our collection of academic resources to enhance your learning 
-              experience and achieve better results in your BCA journey.
+              experience and achieve better results in your academic journey.
             </p>
             <Button asChild size="lg" variant="secondary">
               <Link to="/resources">Explore Resources</Link>

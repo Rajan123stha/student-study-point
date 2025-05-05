@@ -51,10 +51,12 @@ const ResourcesTab = ({ resources, isLoading }: ResourcesTabProps) => {
     
     if (filters.field && filters.field !== 'all') {
       result = result.filter(resource => resource.field === filters.field);
+      console.log('Filtered by field:', resources[0]);
     }
     
     if (filters.type && filters.type !== ALL_TYPES_VALUE) {
       result = result.filter(resource => resource.type === filters.type);
+      console.log('Filtered by type:', filters);
     }
     
     if (filters.subject && filters.subject !== 'all') {

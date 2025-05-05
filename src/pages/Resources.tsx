@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -23,27 +22,26 @@ const Resources = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Custom hooks for filtering and pagination
-  const { 
-    filters, 
-    filteredResources, 
-    handleFilterChange, 
-    clearFilters 
-  } = useResourceFiltering({ allResources: resources });
+  const { filters, filteredResources, handleFilterChange, clearFilters } =
+    useResourceFiltering({ allResources: resources });
 
   const resourcesPerPage = 20;
-  const { 
-    currentPage, 
-    totalPages, 
-    indexOfFirstItem, 
-    indexOfLastItem, 
-    handlePageChange 
+  const {
+    currentPage,
+    totalPages,
+    indexOfFirstItem,
+    indexOfLastItem,
+    handlePageChange,
   } = usePagination({
     totalItems: filteredResources.length,
-    itemsPerPage: resourcesPerPage
+    itemsPerPage: resourcesPerPage,
   });
 
   // Current resources to display
-  const currentResources = filteredResources.slice(indexOfFirstItem, indexOfLastItem);
+  const currentResources = filteredResources.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   // Fetch resources
   useEffect(() => {
@@ -53,11 +51,11 @@ const Resources = () => {
         const data = await getResources();
         setResources(data);
       } catch (error) {
-        console.error('Error fetching resources:', error);
+        console.error("Error fetching resources:", error);
         toast({
           title: "Error",
           description: "Failed to load resources",
-          variant: "destructive"
+          variant: "destructive",
         });
       } finally {
         setIsLoading(false);
@@ -70,10 +68,10 @@ const Resources = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="flex-grow container mx-auto px-6 sm:px-8 lg:px-12 py-8">
+      <main className="flex-grow container mx-auto px-6 sm:px-8 lg:px-12 py-16 mt-4">
         <ResourcesHeader />
 
-        <ResourcesFilters 
+        <ResourcesFilters
           filters={filters}
           onFilterChange={handleFilterChange}
           onClearFilters={clearFilters}
@@ -85,18 +83,22 @@ const Resources = () => {
           ) : (
             <>
               <h2 className="text-xl font-semibold mb-2">
-                {filteredResources.length} {filteredResources.length === 1 ? "Resource" : "Resources"} Found
+                {filteredResources.length}{" "}
+                {filteredResources.length === 1 ? "Resource" : "Resources"}{" "}
+                Found
               </h2>
               {totalPages > 0 && (
                 <p className="text-sm text-gray-500">
-                  Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredResources.length)} of {filteredResources.length} resources
+                  Showing {indexOfFirstItem + 1} to{" "}
+                  {Math.min(indexOfLastItem, filteredResources.length)} of{" "}
+                  {filteredResources.length} resources
                 </p>
               )}
             </>
           )}
         </div>
 
-        <ResourcesGrid 
+        <ResourcesGrid
           resources={currentResources}
           isLoading={isLoading}
           onClearFilters={clearFilters}
