@@ -67,7 +67,7 @@ const Footer = () => {
               <li className="flex items-center space-x-2 text-sm text-gray-600">
                 <Github size={16} />
                 <a
-                  href="https://github.com/"
+                  href="#"
                   className="hover:text-primary transition-colors"
                 >
                   github.com/eduResources

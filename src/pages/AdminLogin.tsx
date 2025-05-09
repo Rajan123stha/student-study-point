@@ -1,46 +1,45 @@
-
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { AlertCircle, Lock } from 'lucide-react';
+import { AlertCircle, Lock } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { authenticateAdmin } from "@/services/mongodb";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
-    
+
     try {
       const isAuthenticated = await authenticateAdmin(email, password);
-      
+
       if (isAuthenticated) {
         // Store authentication state in localStorage for persistence
-        localStorage.setItem('isAdminLoggedIn', 'true');
-        localStorage.setItem('adminEmail', email);
-        
+        localStorage.setItem("isAdminLoggedIn", "true");
+        localStorage.setItem("adminEmail", email);
+
         toast({
           title: "Login successful",
           description: "Welcome to the admin dashboard!",
         });
-        navigate('/admin/dashboard');
+        navigate("/admin/dashboard");
       } else {
-        setError('Invalid email or password');
+        setError("Invalid email or password");
       }
     } catch (error) {
-      console.error('Login error:', error);
-      setError('An error occurred while logging in');
+      console.error("Login error:", error);
+      setError("An error occurred while logging in");
     } finally {
       setIsLoading(false);
     }
@@ -50,7 +49,7 @@ const AdminLogin = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="flex-grow flex items-center justify-center py-12 px-6 sm:px-8 lg:px-12">
+      <main className="flex-grow flex items-center justify-center py-14 px-6 sm:px-8 lg:px-12">
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
             <h2 className="mt-6 text-3xl font-bold text-gray-900">
@@ -71,7 +70,10 @@ const AdminLogin = () => {
           <form className="mt-8 space-y-6" onSubmit={handleLogin}>
             <div className="rounded-md shadow-sm space-y-4">
               <div>
-                <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="email-address"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Email address
                 </label>
                 <Input
@@ -86,7 +88,10 @@ const AdminLogin = () => {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Password
                 </label>
                 <Input
@@ -114,11 +119,10 @@ const AdminLogin = () => {
             </div>
 
             <div className="text-center text-sm">
-              <p className="text-gray-500">
-                Demo Credentials:
-              </p>
+              <p className="text-gray-500">Demo Credentials:</p>
               <p className="text-gray-700">
-                Email: admin@studypoint.com<br />
+                Email: admin@studypoint.com
+                <br />
                 Password: password123
               </p>
             </div>
