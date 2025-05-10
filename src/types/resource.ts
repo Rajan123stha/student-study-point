@@ -1,13 +1,18 @@
-
 export interface Resource {
   id: number;
   title: string;
   description: string;
-  type: string;
   subject: string;
+  field: string;
+  field_id: string;
+  type: string;
   semester: number;
-  uploadDate: string;
   fileUrl: string;
-  field: string; // Field of study (BCA, BBA, BIM, etc.)
-  field_id?: string; // UUID reference to the fields table
+  uploadDate?: string;
+  created_at?: string;
+  
+  // Client-side only properties (not stored in database)
+  fileName?: string;
+  fileSelected?: boolean;
+  fields?: { id: string; name: string };
 }

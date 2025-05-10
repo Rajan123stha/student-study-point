@@ -19,6 +19,7 @@ export interface Resource {
   semester: number;
   uploadDate: string;
   fileUrl: string;
+  field: string;
   created_at?: string;
 }
 

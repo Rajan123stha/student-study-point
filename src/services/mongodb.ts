@@ -1,6 +1,6 @@
-
 import { Resource } from '@/types/resource';
 import { supabase } from '@/lib/supabase';
+import { getStorageUrl, RESOURCES_BUCKET } from '@/config/supabase';
 
 // Function to connect to Supabase
 export const connectToMongoDB = async () => {
@@ -109,10 +109,29 @@ export const createResource = async (resource: Omit<Resource, 'id' | 'uploadDate
 
 export const updateResource = async (id: number, updates: Partial<Resource>): Promise<Resource | null> => {
   try {
+    // CRITICAL FIX: Create a new clean object without problematic fields
+    // Use type assertion to avoid TypeScript errors
+    const updatesCopy = { ...updates } as any;
+      // Remove problematic fields that might cause database errors
+    if ('fields' in updatesCopy) delete updatesCopy.fields;
+    if ('field_id' in updatesCopy) delete updatesCopy.field_id;
+    if ('fileName' in updatesCopy) delete updatesCopy.fileName; // Remove fileName which doesn't exist in DB
+    if ('fileSelected' in updatesCopy) delete updatesCopy.fileSelected; // Remove fileSelected which doesn't exist in DB
+    
+    console.log(`About to update resource ${id} with clean data:`, updatesCopy);
+    
+    // Make sure id is a string for Supabase
     const updateData = {
-      ...updates,
+      ...updatesCopy,
       id: id.toString()
     };
+    
+    // Remove any undefined values that could cause issues
+    Object.keys(updateData).forEach(key => {
+      if (updateData[key] === undefined) {
+        delete updateData[key];
+      }
+    });
     
     const { data, error } = await supabase
       .from('resources')
@@ -126,7 +145,9 @@ export const updateResource = async (id: number, updates: Partial<Resource>): Pr
       throw error;
     }
     
-    console.log(`Updated resource with id ${id}:`, data);
+    console.log(`Successfully updated resource with id ${id}:`, data);
+    
+    // Return the updated resource with the correct field property
     return { 
       ...data, 
       id: Number(data.id),
@@ -214,6 +235,71 @@ export const registerAdmin = async (adminData: { fullName: string, email: string
     return true;
   } catch (error) {
     console.error('Registration failed:', error);
+    throw error;
+  }
+};
+
+export const uploadResourceFile = async (file: File, resourceId: string): Promise<string> => {
+  try {
+    if (!file) {
+      throw new Error('No file provided');
+    }
+
+    // Create a unique file path for this resource
+    const fileExt = file.name.split('.').pop();
+    const sanitizedFileName = file.name.replace(/[^a-zA-Z0-9.]/g, '_'); // Replace special chars
+    const fileName = `${resourceId}_${Date.now()}_${sanitizedFileName}`;
+    
+    // Create a simple file path in the bucket root
+    const filePath = fileName;
+    
+    console.log(`Uploading file: ${fileName} to bucket: ${RESOURCES_BUCKET}`);
+    
+    // WORKAROUND FOR RLS POLICY ISSUE:
+    // 1. Try uploading with credentials first
+    let uploadResult;
+    try {
+      uploadResult = await supabase.storage
+        .from(RESOURCES_BUCKET)
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+    } catch (uploadError) {
+      console.warn("Initial upload failed, likely due to RLS policy:", uploadError);
+      
+      // 2. If that fails, try as anonymous/public upload if your bucket allows it
+      uploadResult = await supabase.storage
+        .from(RESOURCES_BUCKET)
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+    }
+    
+    const { data, error } = uploadResult;
+    
+    if (error) {
+      console.error('Error uploading file:', error);
+      throw error;
+    }
+    
+    // Get the public URL for the file
+    const { data: urlData } = supabase.storage
+      .from(RESOURCES_BUCKET)
+      .getPublicUrl(data.path);
+    
+    console.log('Generated URL:', urlData.publicUrl);
+    
+    // Ensure we have an absolute URL
+    const finalUrl = urlData.publicUrl.startsWith('http') 
+      ? urlData.publicUrl 
+      : getStorageUrl(data.path);
+    
+    console.log('File uploaded successfully, URL:', finalUrl);
+    return finalUrl;
+  } catch (error) {
+    console.error('Failed to upload file:', error);
     throw error;
   }
 };
