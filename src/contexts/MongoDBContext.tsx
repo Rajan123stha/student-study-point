@@ -39,7 +39,7 @@ export const MongoDBProvider = ({ children }: MongoDBProviderProps) => {
 
       // If the table exists but is empty, seed it with mock data
       if (!tablesError && (!data || data.length === 0)) {
-        console.log('Setting up initial data in Supabase');
+        // console.log('Setting up initial data in Supabase');
         
         // Seed the database with mock data
         for (const resource of MOCK_RESOURCES) {
@@ -59,7 +59,7 @@ export const MongoDBProvider = ({ children }: MongoDBProviderProps) => {
       } else if (tablesError) {
         console.error('Error checking resources table:', tablesError);
       } else {
-        console.log('Supabase resources table already exists with data');
+        // console.log('Supabase resources table already exists with data');
       }
 
       // Check admin users table
@@ -70,7 +70,7 @@ export const MongoDBProvider = ({ children }: MongoDBProviderProps) => {
 
       // If admin table exists but is empty, add default admin
       if (!adminsError && (!adminData || adminData.length === 0)) {
-        console.log('Setting up default admin user');
+        // console.log('Setting up default admin user');
         // Create default admin user
         await supabase
           .from('admins')
@@ -82,7 +82,7 @@ export const MongoDBProvider = ({ children }: MongoDBProviderProps) => {
       } else if (adminsError) {
         console.error('Error checking admins table:', adminsError);
       } else {
-        console.log('Admins table already exists with data');
+        // console.log('Admins table already exists with data');
       }
       
       setIsConnected(true);

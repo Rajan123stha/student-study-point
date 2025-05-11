@@ -28,11 +28,11 @@ const ResourceFilter = ({
   filters,
 }: ResourceFilterProps) => {
   const { fields } = useFields();
-  console.log("Field:", fields[0]);
+  // console.log("Field:", fields[0]);
   // Get field name for display purposes
   const getFieldName = (fieldId: string): string => {
     const field = fields.find((f) => f.id === fieldId);
-    console.log("Field:", field);
+    // console.log("Field:", field);
     return field?.name || "";
   };
 
@@ -52,6 +52,10 @@ const ResourceFilter = ({
             onChange={(value) => onFilterChange("type", value)}
           />
 
+          <SemesterSelector
+            value={filters.semester || "all"}
+            onChange={(value) => onFilterChange("semester", value)}
+          />
           <SubjectSelector
             value={filters.subject}
             onChange={(value) => onFilterChange("subject", value)}
@@ -61,11 +65,6 @@ const ResourceFilter = ({
                 ? filters.semester
                 : undefined
             }
-          />
-
-          <SemesterSelector
-            value={filters.semester || "all"}
-            onChange={(value) => onFilterChange("semester", value)}
           />
 
           <div className="flex items-end">

@@ -56,17 +56,17 @@ const ResourcesTab = ({ resources, isLoading }: ResourcesTabProps) => {
     if (filters.field && filters.field !== "all") {
       // FIXED: Compare field_id with filters.field (which is the ID)
       // OR compare field name with proper field name from a lookup
-      console.log("Filtering by field ID:", filters.field);
+      // console.log("Filtering by field ID:", filters.field);
       result = result.filter((resource) => resource.field_id === filters.field);
 
-      console.log("Filtered resource:", resources[0]);
-      console.log("Filtered data:", resources[0]);
-      console.log("Filtered by filter:", filters.field);
+      // console.log("Filtered resource:", resources[0]);
+      // console.log("Filtered data:", resources[0]);
+      // console.log("Filtered by filter:", filters.field);
     }
 
     if (filters.type && filters.type !== ALL_TYPES_VALUE) {
       result = result.filter((resource) => resource.type === filters.type);
-      console.log("Filtered by type:", filters);
+      // console.log("Filtered by type:", filters);
     }
 
     if (filters.subject && filters.subject !== "all") {
@@ -137,7 +137,7 @@ const ResourcesTab = ({ resources, isLoading }: ResourcesTabProps) => {
     if (!currentResource) return;
 
     try {
-      console.log("Attempting to update resource:", currentResource);
+      // console.log("Attempting to update resource:", currentResource);
       // Check if we have a new file to upload
       const fileInput = document.getElementById(
         "file-upload"
@@ -286,7 +286,7 @@ const ResourcesTab = ({ resources, isLoading }: ResourcesTabProps) => {
       }));
 
       // For debugging
-      console.log(`Changed ${name} to:`, value);
+      // console.log(`Changed ${name} to:`, value);
     }
   };
 

@@ -5,7 +5,7 @@ import { getStorageUrl, RESOURCES_BUCKET } from '@/config/supabase';
 // Function to connect to Supabase
 export const connectToMongoDB = async () => {
   try {
-    console.log('Connecting to Supabase...');
+    // console.log('Connecting to Supabase...');
     
     // Test connection by making a simple query
     const { data, error } = await supabase
@@ -18,7 +18,7 @@ export const connectToMongoDB = async () => {
       throw error;
     }
     
-    console.log('Connected to Supabase');
+    // console.log('Connected to Supabase');
     return true;
   } catch (error) {
     console.error('Failed to connect to Supabase:', error);
@@ -39,7 +39,7 @@ export const getResources = async (): Promise<Resource[]> => {
       throw error;
     }
     
-    console.log('Fetched resources:', data);
+    // console.log('Fetched resources:', data);
     return data?.map(item => ({
       ...item,
       id: Number(item.id),
@@ -64,7 +64,7 @@ export const getResourceById = async (id: number): Promise<Resource | null> => {
       return null;
     }
     
-    console.log(`Fetched resource with id ${id}:`, data);
+    // console.log(`Fetched resource with id ${id}:`, data);
     return { 
       ...data, 
       id: Number(data.id),
@@ -95,7 +95,7 @@ export const createResource = async (resource: Omit<Resource, 'id' | 'uploadDate
       throw error;
     }
     
-    console.log('Created resource:', data);
+    // console.log('Created resource:', data);
     return { 
       ...data, 
       id: Number(data.id),
@@ -118,7 +118,7 @@ export const updateResource = async (id: number, updates: Partial<Resource>): Pr
     if ('fileName' in updatesCopy) delete updatesCopy.fileName; // Remove fileName which doesn't exist in DB
     if ('fileSelected' in updatesCopy) delete updatesCopy.fileSelected; // Remove fileSelected which doesn't exist in DB
     
-    console.log(`About to update resource ${id} with clean data:`, updatesCopy);
+    // console.log(`About to update resource ${id} with clean data:`, updatesCopy);
     
     // Make sure id is a string for Supabase
     const updateData = {
@@ -145,7 +145,7 @@ export const updateResource = async (id: number, updates: Partial<Resource>): Pr
       throw error;
     }
     
-    console.log(`Successfully updated resource with id ${id}:`, data);
+    // console.log(`Successfully updated resource with id ${id}:`, data);
     
     // Return the updated resource with the correct field property
     return { 
@@ -171,7 +171,7 @@ export const deleteResource = async (id: number): Promise<boolean> => {
       throw error;
     }
     
-    console.log(`Deleted resource with id ${id}`);
+    // console.log(`Deleted resource with id ${id}`);
     return true;
   } catch (error) {
     console.error(`Failed to delete resource with id ${id}:`, error);
@@ -253,7 +253,7 @@ export const uploadResourceFile = async (file: File, resourceId: string): Promis
     // Create a simple file path in the bucket root
     const filePath = fileName;
     
-    console.log(`Uploading file: ${fileName} to bucket: ${RESOURCES_BUCKET}`);
+    // console.log(`Uploading file: ${fileName} to bucket: ${RESOURCES_BUCKET}`);
     
     // WORKAROUND FOR RLS POLICY ISSUE:
     // 1. Try uploading with credentials first
@@ -289,14 +289,14 @@ export const uploadResourceFile = async (file: File, resourceId: string): Promis
       .from(RESOURCES_BUCKET)
       .getPublicUrl(data.path);
     
-    console.log('Generated URL:', urlData.publicUrl);
+    // console.log('Generated URL:', urlData.publicUrl);
     
     // Ensure we have an absolute URL
     const finalUrl = urlData.publicUrl.startsWith('http') 
       ? urlData.publicUrl 
       : getStorageUrl(data.path);
     
-    console.log('File uploaded successfully, URL:', finalUrl);
+    // console.log('File uploaded successfully, URL:', finalUrl);
     return finalUrl;
   } catch (error) {
     console.error('Failed to upload file:', error);

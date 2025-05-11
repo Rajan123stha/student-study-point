@@ -1,7 +1,14 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Calendar, BookOpen, FileText, BookMarked, Download, Eye } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  BookOpen,
+  FileText,
+  BookMarked,
+  Download,
+  Eye,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -21,30 +28,30 @@ const ResourceDetail = () => {
     const fetchResource = async () => {
       try {
         if (id) {
-          console.log('Fetching resource with id:', id);
+          // console.log('Fetching resource with id:', id);
           const foundResource = await getResourceById(Number(id));
-          console.log('Found resource:', foundResource);
+          // console.log('Found resource:', foundResource);
           setResource(foundResource);
         }
       } catch (error) {
-        console.error('Error fetching resource:', error);
+        console.error("Error fetching resource:", error);
         toast({
           title: "Error",
           description: "Failed to load resource details",
-          variant: "destructive"
+          variant: "destructive",
         });
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchResource();
   }, [id, toast]);
 
   // Get icon based on resource type
   const getIcon = () => {
     if (!resource) return null;
-    
+
     switch (resource.type) {
       case "Notes":
         return <BookOpen className="h-6 w-6" />;
@@ -60,7 +67,7 @@ const ResourceDetail = () => {
   // Get color based on resource type
   const getColorClass = () => {
     if (!resource) return "";
-    
+
     switch (resource.type) {
       case "Notes":
         return "bg-primary/10 text-primary";
@@ -95,7 +102,9 @@ const ResourceDetail = () => {
         <main className="flex-grow container mx-auto px-6 sm:px-8 lg:px-12 py-8 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Resource Not Found</h1>
-            <p className="text-gray-600 mb-6">The resource you're looking for doesn't exist or has been removed.</p>
+            <p className="text-gray-600 mb-6">
+              The resource you're looking for doesn't exist or has been removed.
+            </p>
             <Button asChild>
               <Link to="/resources">Back to Resources</Link>
             </Button>
@@ -109,17 +118,21 @@ const ResourceDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
-      <main className="flex-grow container mx-auto px-6 sm:px-8 lg:px-12 py-8">
+
+      <main className="flex-grow container mx-auto px-6 sm:px-8 lg:px-12 py-16">
         <div className="mb-6">
-          <Button variant="ghost" asChild className="mb-4 pl-0 hover:bg-transparent">
+          <Button
+            variant="ghost"
+            asChild
+            className="mb-4 pl-0 hover:bg-transparent"
+          >
             <Link to="/resources" className="flex items-center text-gray-600">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Resources
             </Link>
           </Button>
         </div>
-        
+
         <div className="bg-white rounded-lg shadow-md overflow-hidden p-6 mb-8">
           {/* Resource Header */}
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
@@ -127,7 +140,7 @@ const ResourceDetail = () => {
               <div className={`p-3 rounded-lg ${getColorClass()}`}>
                 {getIcon()}
               </div>
-              
+
               <div>
                 <h1 className="text-2xl font-bold mb-2">{resource.title}</h1>
                 <div className="flex flex-wrap gap-2 text-sm text-gray-500">
@@ -141,35 +154,37 @@ const ResourceDetail = () => {
                     • Semester {resource.semester}
                   </span>
                   <span className="flex items-center">
-                    • <Calendar className="h-4 w-4 mr-1" /> 
+                    • <Calendar className="h-4 w-4 mr-1" />
                     {new Date(resource.uploadDate).toLocaleDateString()}
                   </span>
                 </div>
               </div>
             </div>
-            
+
             <div>
-              <span className={`inline-block text-xs font-medium py-1 px-3 rounded-full ${getColorClass()}`}>
+              <span
+                className={`inline-block text-xs font-medium py-1 px-3 rounded-full ${getColorClass()}`}
+              >
                 {resource.type}
               </span>
             </div>
           </div>
-          
+
           {/* Resource Content */}
           <div className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Description</h2>
             <p className="text-gray-700">{resource.description}</p>
           </div>
-          
+
           {/* Download Section */}
           <div className="border-t pt-6 flex flex-wrap gap-3">
             <Button onClick={() => setShowPreview(true)} variant="outline">
               <Eye className="mr-2 h-4 w-4" />
               Preview
             </Button>
-            
+
             <Button asChild>
-              <a href={resource.fileUrl} download>
+              <a href={resource.fileUrl} target="_blank" rel="noopener noreferrer" download>
                 <Download className="mr-2 h-4 w-4" />
                 Download Resource
               </a>
@@ -177,14 +192,14 @@ const ResourceDetail = () => {
           </div>
         </div>
       </main>
-      
+
       {showPreview && resource && (
-        <ResourcePreview 
-          resource={resource} 
-          onClose={() => setShowPreview(false)} 
+        <ResourcePreview
+          resource={resource}
+          onClose={() => setShowPreview(false)}
         />
       )}
-      
+
       <Footer />
     </div>
   );
