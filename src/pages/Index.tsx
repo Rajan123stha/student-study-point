@@ -19,7 +19,7 @@ const Index = () => {
                   Your Academic Success Hub
                 </h1>
                 <p className="text-lg text-gray-700 mb-6">
-                  Access high-quality BCA learning resources, past exam
+                  Access high-quality learning resources, past exam
                   questions, and comprehensive notes all in one place.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -56,7 +56,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Course Notes</h3>
                 <p className="text-gray-600">
-                  Comprehensive, well-structured notes for all BCA subjects
+                  Comprehensive, well-structured notes for all subjects
                   organized by semester.
                 </p>
               </div>
@@ -79,7 +79,7 @@ const Index = () => {
                 <h3 className="text-xl font-semibold mb-2">Syllabus</h3>
                 <p className="text-gray-600">
                   Latest curriculum and syllabus information for each subject in
-                  the BCA program.
+                  the program.
                 </p>
               </div>
             </div>
@@ -93,7 +93,7 @@ const Index = () => {
               Ready to Excel in Your Studies?
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of BCA students who are already using EduResources
+              Join thousands of students who are already using EduResources
               to achieve academic excellence.
             </p>
             <Button asChild size="lg" variant="secondary">

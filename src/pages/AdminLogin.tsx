@@ -118,14 +118,14 @@ const AdminLogin = () => {
               </Button>
             </div>
 
-            <div className="text-center text-sm">
+            {/* <div className="text-center text-sm">
               <p className="text-gray-500">Demo Credentials:</p>
               <p className="text-gray-700">
                 Email: admin@studypoint.com
                 <br />
                 Password: password123
               </p>
-            </div>
+            </div> */}
           </form>
         </div>
       </main>

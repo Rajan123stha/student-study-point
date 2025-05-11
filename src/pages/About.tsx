@@ -122,18 +122,13 @@ const About = () => {
                   Current and updated course syllabi for all semesters to guide
                   your study plan.
                 </p>
-                <h3 className="text-xl font-semibold mb-2">Reports</h3>
-                <p className="text-gray-600">
-                  Lab reports and project documentation to help you with
-                  practical work.
-                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Team Section */}
-        <section className="py-16">
+        {/* <section className="py-16">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">Our Team</h2>
             <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
@@ -150,12 +145,12 @@ const About = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
         <section className="bg-primary text-white py-16">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Join Our Community</h2>
+            <h2 className="text-3xl font-bold mb-4">Explore the Resources</h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
               Start exploring our collection of academic resources to enhance
               your learning experience and achieve better results in your
