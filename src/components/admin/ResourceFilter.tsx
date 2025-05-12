@@ -68,7 +68,7 @@ const ResourceFilter = ({
           />
 
           <div className="flex items-end">
-            <Button variant="outline" onClick={onReset} className="w-full">
+            <Button variant="default" onClick={onReset} className="w-full">
               Reset Filters
             </Button>
           </div>

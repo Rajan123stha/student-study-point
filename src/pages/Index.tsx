@@ -19,8 +19,8 @@ const Index = () => {
                   Your Academic Success Hub
                 </h1>
                 <p className="text-lg text-gray-700 mb-6">
-                  Access high-quality learning resources, past exam
-                  questions, and comprehensive notes all in one place.
+                  Access high-quality learning resources, past exam questions,
+                  and comprehensive notes all in one place.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button asChild size="lg">
@@ -55,7 +55,7 @@ const Index = () => {
                   <Book size={24} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Course Notes</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-lg">
                   Comprehensive, well-structured notes for all subjects
                   organized by semester.
                 </p>
@@ -66,7 +66,7 @@ const Index = () => {
                   <FileText size={24} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Past Exams</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-lg">
                   Previous years' question papers with solutions to help you
                   prepare effectively.
                 </p>
@@ -77,7 +77,7 @@ const Index = () => {
                   <Bookmark size={24} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Syllabus</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-lg">
                   Latest curriculum and syllabus information for each subject in
                   the program.
                 </p>
@@ -93,8 +93,8 @@ const Index = () => {
               Ready to Excel in Your Studies?
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of students who are already using EduResources
-              to achieve academic excellence.
+              Join thousands of students who are already using EduResources to
+              achieve academic excellence.
             </p>
             <Button asChild size="lg" variant="secondary">
               <Link to="/resources">Explore Resources Now</Link>
